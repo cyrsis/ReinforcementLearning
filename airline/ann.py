@@ -100,17 +100,17 @@ class ANN(object):
         # print "N:", N, "batch_sz:", batch_sz
         # print "n_batches:", n_batches
         costs = []
-        for i in xrange(epochs):
+        for i in range(epochs):
             X, Y = shuffle(X, Y)
-            for j in xrange(n_batches):
+            for j in range(n_batches):
                 Xbatch = X[j*batch_sz:(j*batch_sz+batch_sz)]
                 Ybatch = Y[j*batch_sz:(j*batch_sz+batch_sz)]
 
                 c, p = train_op(Xbatch, Ybatch)
                 costs.append(c)
                 if (j+1) % print_period == 0:
-                    print "i:", i, "j:", j, "nb:", n_batches, "cost:", c
-        
+                    print("i:", i, "j:", j, "nb:", n_batches, "cost:", c)
+
         if show_fig:
             plt.plot(costs)
             plt.show()
@@ -152,11 +152,11 @@ N = len(series)
 for D in (2,3,4,5,6,7):
     n = N - D
     X = np.zeros((n, D))
-    for d in xrange(D):
+    for d in range(D):
         X[:,d] = series[d:d+n]
     Y = series[D:D+n]
 
-    print "series length:", n
+    print("series length:", n)
     Xtrain = X[:n/2]
     Ytrain = Y[:n/2]
     Xtest = X[n/2:]
@@ -164,8 +164,8 @@ for D in (2,3,4,5,6,7):
 
     model = ANN([200])
     model.fit(Xtrain, Ytrain, activation=T.tanh)
-    print "train score:", model.score(Xtrain, Ytrain)
-    print "test score:", model.score(Xtest, Ytest)
+    print("train score:", model.score(Xtrain, Ytrain))
+    print("test score:", model.score(Xtest, Ytest))
 
     # plot the prediction with true values
     plt.plot(series)
